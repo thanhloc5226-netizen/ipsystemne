@@ -1,0 +1,377 @@
+{% extends 'ipsystemapp/base.html' %}
+{% load static %}
+
+{% block title %}IPSystem | Thiết kế Phần mềm Chuyên Nghiệp{% endblock %}
+
+{% block extra_css %}
+<style>
+    .carousel-container {
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        overflow-x: hidden;
+    }
+    .carousel-container::-webkit-scrollbar { display: none; }
+    .carousel-item {
+        scroll-snap-align: start;
+        flex-shrink: 0;
+    }
+    .dot { transition: all 0.3s ease; }
+    .dot.active { background-color: #d41132 !important; width: 2.5rem !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ===== CAROUSEL (Dynamic từ Admin) ===== -->
+<section class="relative w-full h-[600px] lg:h-[750px] overflow-hidden group">
+    <div id="carousel" class="carousel-container flex w-full h-full">
+
+        {% for slide in slides %}
+        <div class="carousel-item w-full h-full relative" style="min-width:100%">
+            <img alt="{{ slide.image_alt }}" class="w-full h-full object-cover"
+                src="{{ slide.get_image }}" />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent flex items-center justify-center text-center">
+                <div class="max-w-2xl px-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-wider mb-6">
+                        <span class="material-symbols-outlined text-sm">{{ slide.badge_icon }}</span>
+                        {{ slide.badge_text }}
+                    </div>
+                    <h1 class="text-white text-5xl lg:text-7xl font-black leading-tight mb-6">
+                        {{ slide.title_line1 }}<br />
+                        <span class="text-primary">{{ slide.title_line2_highlight }}</span>
+                    </h1>
+                    <p class="text-slate-300 text-lg lg:text-xl mb-10 max-w-xl mx-auto">
+                        {{ slide.description }}
+                    </p>
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        <a href="{{ slide.btn1_url }}" class="bg-primary text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-primary/90 transition-all shadow-xl shadow-primary/20">
+                            {{ slide.btn1_text }}
+                        </a>
+                        <a href="{{ slide.btn2_url }}" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition-all">
+                            {{ slide.btn2_text }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <!-- Fallback nếu chưa có slide nào trong DB -->
+        <div class="carousel-item w-full h-full relative flex items-center justify-center bg-slate-900" style="min-width:100%">
+            <p class="text-white text-2xl">Chưa có slide nào. Vui lòng thêm trong Admin.</p>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <!-- Prev/Next Buttons -->
+    <button id="prevBtn" class="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/30 backdrop-blur-md border border-white/30 text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 z-10">
+        <span class="material-symbols-outlined">chevron_left</span>
+    </button>
+    <button id="nextBtn" class="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/30 backdrop-blur-md border border-white/30 text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 z-10">
+        <span class="material-symbols-outlined">chevron_right</span>
+    </button>
+
+    <!-- Dots (dynamic) -->
+    <div id="dots" class="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+        {% for slide in slides %}
+        <div class="dot {% if forloop.first %}active w-10{% else %}w-4{% endif %} h-1.5 rounded-full bg-white/30 cursor-pointer hover:bg-white/50"
+             data-index="{{ forloop.counter0 }}"></div>
+        {% endfor %}
+    </div>
+</section>
+<!-- ===== END CAROUSEL ===== -->
+
+
+<!-- ===== HERO SECTION (Dynamic từ Admin) ===== -->
+{% if hero %}
+<section class="relative py-20 lg:py-32 px-6 overflow-hidden">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+        <div class="flex flex-col gap-8 reveal reveal--left">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider w-fit">
+                <span class="material-symbols-outlined text-sm">developer_mode</span>
+                {{ hero.badge_text }}
+            </div>
+            <h1 class="text-slate-900 dark:text-slate-100 text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight">
+                {{ hero.title_main }} <span class="text-primary">{{ hero.title_highlight }}</span> {{ hero.title_suffix }}
+            </h1>
+            <p class="text-slate-600 dark:text-slate-400 text-lg lg:text-xl leading-relaxed max-w-xl">
+                {{ hero.description }}
+            </p>
+            <div class="flex flex-wrap gap-4 mt-4">
+                <a href="{{ hero.btn1_url }}" class="flex min-w-[180px] items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-primary/30">
+                    {{ hero.btn1_text }}
+                </a>
+                <a href="{{ hero.btn2_url }}" class="flex min-w-[180px] items-center justify-center rounded-xl h-14 px-8 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                    {{ hero.btn2_text }}
+                </a>
+            </div>
+        </div>
+        <div class="relative">
+            <div class="absolute -top-10 -right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+            <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border border-slate-200/50 dark:border-slate-700/50 aspect-video lg:aspect-square">
+                {% if hero.hero_image %}
+                    <img alt="{{ hero.hero_image_alt }}" class="w-full h-full object-cover" src="{{ hero.hero_image.url }}" />
+                {% else %}
+                    <img alt="{{ hero.hero_image_alt }}" class="w-full h-full object-cover" src="{% static 'images/ipsystem_hero.png' %}" />
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% else %}
+<!-- Fallback nếu chưa có HeroSection trong DB -->
+<section class="relative py-20 lg:py-32 px-6 overflow-hidden">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+        <div class="flex flex-col gap-8">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider w-fit">
+                <span class="material-symbols-outlined text-sm">developer_mode</span>
+                Chuyên gia giải pháp phần mềm
+            </div>
+            <h1 class="text-slate-900 dark:text-slate-100 text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight">
+                IPSystem - <span class="text-primary">Chuyên gia</span> Thiết kế Phần mềm
+            </h1>
+            <p class="text-slate-600 dark:text-slate-400 text-lg lg:text-xl leading-relaxed max-w-xl">
+                Chúng tôi tập trung vào chuyên môn phần mềm, cung cấp các giải pháp tùy chỉnh vượt trội nhằm tối ưu hóa quy trình vận hành và thúc đẩy sự tăng trưởng bền vững cho doanh nghiệp.
+            </p>
+            <div class="flex flex-wrap gap-4 mt-4">
+                <a href="{% url 'contact:contact' %}" class="flex min-w-[180px] items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-primary/30">
+                    Tư vấn giải pháp
+                </a>
+                <a href="{% url 'about:about' %}" class="flex min-w-[180px] items-center justify-center rounded-xl h-14 px-8 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                    Tìm hiểu thêm
+                </a>
+            </div>
+        </div>
+        <div class="relative">
+            <div class="absolute -top-10 -right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+            <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border border-slate-200/50 dark:border-slate-700/50 aspect-video lg:aspect-square">
+                <img alt="Phát triển phần mềm chuyên nghiệp" class="w-full h-full object-cover"
+                    src="{% static 'images/ipsystem_hero.png' %}" />
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+<!-- ===== END HERO SECTION ===== -->
+
+
+<!-- ===== SERVICES SECTION ===== -->
+<section class="py-24 px-6 bg-white dark:bg-slate-900/50" id="dich-vu">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+            <h2 class="text-primary font-bold tracking-widest uppercase text-sm mb-4">Dịch vụ phần mềm</h2>
+            <h3 class="text-3xl lg:text-4xl font-black text-slate-900 dark:text-slate-100">Các Loại Dịch Vụ Thiết Kế Phần Mềm Chúng Tôi Cung Cấp</h3>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="group p-8 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 reveal dark:border-slate-700 hover:border-primary transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-2">
+                <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-3xl">business</span>
+                </div>
+                <h4 class="font-black text-lg text-slate-900 dark:text-slate-100 mb-3">Website Doanh nghiệp</h4>
+                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Thiết kế website chuyên nghiệp, hiện đại phản ánh đúng giá trị thương hiệu của bạn.</p>
+            </div>
+            <div class="group p-8 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 reveal dark:border-slate-700 hover:border-primary transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-2">
+                <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-3xl">shopping_cart</span>
+                </div>
+                <h4 class="font-black text-lg text-slate-900 dark:text-slate-100 mb-3">Thương mại điện tử</h4>
+                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Xây dựng hệ thống mua sắm trực tuyến mạnh mẽ, tối ưu chuyển đổi và trải nghiệm mua hàng.</p>
+            </div>
+            <div class="group p-8 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 reveal dark:border-slate-700 hover:border-primary transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-2">
+                <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-3xl">dashboard</span>
+                </div>
+                <h4 class="font-black text-lg text-slate-900 dark:text-slate-100 mb-3">Hệ thống quản lý</h4>
+                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Phát triển ERP, CRM và các hệ thống nội bộ tối ưu hóa vận hành doanh nghiệp.</p>
+            </div>
+            <div class="group p-8 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 reveal dark:border-slate-700 hover:border-primary transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-2">
+                <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-3xl">phone_iphone</span>
+                </div>
+                <h4 class="font-black text-lg text-slate-900 dark:text-slate-100 mb-3">Ứng dụng di động</h4>
+                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Phát triển app iOS & Android tốc độ cao, giao diện đẹp, trải nghiệm người dùng xuất sắc.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FEATURED PROJECTS ===== -->
+<section class="py-24 px-6 bg-white dark:bg-slate-900" id="du-an">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 reveal">
+            <div class="max-w-2xl">
+                <h2 class="text-primary font-bold tracking-widest uppercase text-sm mb-4">Dự án tiêu biểu</h2>
+                <h3 class="text-3xl lg:text-4xl font-black text-slate-900 dark:text-slate-100">Những dự án phần mềm chúng tôi đã thực hiện</h3>
+            </div>
+            <a href="{% url 'portfolio:portfolio' %}" class="text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all text-lg">
+                Xem tất cả dự án <span class="material-symbols-outlined font-bold">arrow_forward</span>
+            </a>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="group relative rounded-2xl overflow-hidden aspect-[4/5] shadow-lg reveal reveal--scale">
+                <img alt="Hệ thống ngân hàng số" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuByRQGbxYBDiLBzPBtMepcuf-49RTfDG8RTSPkf5dhypSPOEFEOHALSWzi7wb9fzij2xRL_YTIzQoO-VhxOQFjxCN0Hkjn9XPmLNjsoC-5fp0q-AJd3qV8qaEaty4mIsQgM6F2qZvVgxb6cq49J3NmNdCgkeR4ZPmZDSrULJetrYxzU_lPpAP4KsV_yVEGx4LH8c8-2-rMq2yKIrZtKBz5jAaiUkjbnEWl8eu4viOB0cOc1v3FuImZxdL8zvGt8j4SSXVQzJx4jqfQ" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-8">
+                    <span class="text-primary font-bold text-sm uppercase tracking-widest mb-2">Fintech</span>
+                    <h4 class="text-white text-2xl font-bold mb-4">Hệ thống ngân hàng số</h4>
+                    <button class="w-12 h-12 rounded-full bg-white text-primary flex items-center justify-center">
+                        <span class="material-symbols-outlined">north_east</span>
+                    </button>
+                </div>
+            </div>
+            <div class="group relative rounded-2xl overflow-hidden aspect-[4/5] shadow-lg reveal reveal--scale">
+                <img alt="Sàn thương mại điện tử" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3pH5Qj3XeSATwqflLAIDsP_Drshnzg5u-WjDR2luJYsGY-IJJqFMyWj7oF8oIdVaXEE-ilh_fIfl5AZqmQgKMwiP45p1IdE3hVPs6OW5VwLvVGnDjD_u8gWKCmiIer7Hv4Y9CVkS6HzUJeRm-I3WOwelWWhm0Zwpu_R9n6UAfongTzUr0IAOihU46l0eC8KXnEDoQoe3QkD6xNMGmVs1TUFm-zXuAbCFs4aU_jrYJvARF5XuuC47wwQk0jMzmnzgLXUV34ZeSoHg" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-8">
+                    <span class="text-primary font-bold text-sm uppercase tracking-widest mb-2">E-commerce</span>
+                    <h4 class="text-white text-2xl font-bold mb-4">Sàn thương mại điện tử</h4>
+                    <button class="w-12 h-12 rounded-full bg-white text-primary flex items-center justify-center">
+                        <span class="material-symbols-outlined">north_east</span>
+                    </button>
+                </div>
+            </div>
+            <div class="group relative rounded-2xl overflow-hidden aspect-[4/5] shadow-lg reveal reveal--scale">
+                <img alt="Quản lý dự án ERP" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRNXqG3hs7rLH_FsrhPeTJSP8vhyAVVBNVOyfbiBe0DYv6HP1Vtn4KGvX_tqO0bNXehkQDK8tz8T3OH-ah_vpKn4ma84dYpcbLQ3Ics7nQ1TA93PhbTFn4uIvuFnHPks6-JAI25X-WS3qkFkcxcBytbwk2l9evfvhiEczOXpo106hx4pWSu1hEdFDPo_OHxhRpitXW0Pr0t7C1_sgd7XWNE3OtRvCTrgt9t7KeY0ZKuJUshxYLpEB4GDNbA2cSEIRiqAExpGyM9Mw" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-8">
+                    <span class="text-primary font-bold text-sm uppercase tracking-widest mb-2">SaaS</span>
+                    <h4 class="text-white text-2xl font-bold mb-4">Quản lý dự án ERP</h4>
+                    <button class="w-12 h-12 rounded-full bg-white text-primary flex items-center justify-center">
+                        <span class="material-symbols-outlined">north_east</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ===== END FEATURED PROJECTS ===== -->
+<!-- ===== VALUES ===== -->
+<section class="px-4 md:px-20 lg:px-40 py-24">
+    <div class="mb-16 text-center reveal">
+        <h2 class="text-slate-900 dark:text-slate-100 text-4xl font-black mb-4 tracking-tight">Giá trị chúng tôi mang lại</h2>
+        <div class="w-24 h-1.5 bg-primary mx-auto rounded-full"></div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for value in values %}
+        <div class="group flex flex-col gap-5 p-8 rounded-2xl border border-slate-100 bg-white dark:bg-background-dark/30 reveal hover:shadow-2xl hover:shadow-primary/5 transition-all hover:-translate-y-1">
+            <div class="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center group-hover:bg-primary transition-colors">
+                <span class="material-symbols-outlined text-primary text-3xl group-hover:text-white">{{ value.icon }}</span>
+            </div>
+            <div>
+                <h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold mb-2">{{ value.title }}</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-base leading-relaxed">{{ value.description }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <!-- Static fallback cards -->
+        <div class="group flex flex-col gap-5 p-8 rounded-2xl border border-slate-100 bg-white dark:bg-background-dark/30 reveal hover:shadow-2xl hover:shadow-primary/5 transition-all hover:-translate-y-1">
+            <div class="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center group-hover:bg-primary transition-colors">
+                <span class="material-symbols-outlined text-primary text-3xl group-hover:text-white">dashboard_customize</span>
+            </div>
+            <div>
+                <h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold mb-2">Giao diện chuyên nghiệp</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-base leading-relaxed">Thiết kế hiện đại, tinh tế, cá nhân hóa theo nhận diện thương hiệu của bạn.</p>
+            </div>
+        </div>
+        <div class="group flex flex-col gap-5 p-8 rounded-2xl border border-slate-100 bg-white dark:bg-background-dark/30 reveal hover:shadow-2xl hover:shadow-primary/5 transition-all hover:-translate-y-1">
+            <div class="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center group-hover:bg-primary transition-colors">
+                <span class="material-symbols-outlined text-primary text-3xl group-hover:text-white">settings_suggest</span>
+            </div>
+            <div>
+                <h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold mb-2">Giải pháp tối ưu</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-base leading-relaxed">Tối ưu hóa quy trình vận hành và nâng cao hiệu quả kinh doanh thực tế.</p>
+            </div>
+        </div>
+        <div class="group flex flex-col gap-5 p-8 rounded-2xl border border-slate-100 bg-white dark:bg-background-dark/30 reveal hover:shadow-2xl hover:shadow-primary/5 transition-all hover:-translate-y-1">
+            <div class="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center group-hover:bg-primary transition-colors">
+                <span class="material-symbols-outlined text-primary text-3xl group-hover:text-white">ads_click</span>
+            </div>
+            <div>
+                <h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold mb-2">Thao tác dễ dàng</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-base leading-relaxed">Trải nghiệm người dùng thân thiện, tinh giản hóa các quy trình phức tạp.</p>
+            </div>
+        </div>
+        <div class="group flex flex-col gap-5 p-8 rounded-2xl border border-slate-100 bg-white dark:bg-background-dark/30 reveal hover:shadow-2xl hover:shadow-primary/5 transition-all hover:-translate-y-1">
+            <div class="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center group-hover:bg-primary transition-colors">
+                <span class="material-symbols-outlined text-primary text-3xl group-hover:text-white">trending_up</span>
+            </div>
+            <div>
+                <h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold mb-2">Nâng cấp vượt trội</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-base leading-relaxed">Hệ thống linh hoạt, dễ dàng mở rộng và tích hợp thêm các tính năng mới.</p>
+            </div>
+        </div>
+        <div class="group flex flex-col gap-5 p-8 rounded-2xl border border-slate-100 bg-white dark:bg-background-dark/30 reveal hover:shadow-2xl hover:shadow-primary/5 transition-all hover:-translate-y-1">
+            <div class="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center group-hover:bg-primary transition-colors">
+                <span class="material-symbols-outlined text-primary text-3xl group-hover:text-white">admin_panel_settings</span>
+            </div>
+            <div>
+                <h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold mb-2">Bảo mật cao cấp</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-base leading-relaxed">Hệ thống bảo mật nhiều lớp, đảm bảo an toàn dữ liệu tuyệt đối cho doanh nghiệp.</p>
+            </div>
+        </div>
+        <div class="group flex flex-col gap-5 p-8 rounded-2xl border border-slate-100 bg-white dark:bg-background-dark/30 reveal hover:shadow-2xl hover:shadow-primary/5 transition-all hover:-translate-y-1">
+            <div class="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center group-hover:bg-primary transition-colors">
+                <span class="material-symbols-outlined text-primary text-3xl group-hover:text-white">support_agent</span>
+            </div>
+            <div>
+                <h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold mb-2">Hỗ trợ 24/7</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-base leading-relaxed">Đội ngũ kỹ thuật luôn sẵn sàng hỗ trợ bạn mọi lúc, mọi nơi.</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<!-- ===== END VALUES ===== -->
+
+<section class="py-24 px-6 reveal reveal-scale">
+    <div class="max-w-7xl mx-auto rounded-3xl bg-primary p-12 lg:p-20 text-center relative overflow-hidden shadow-2xl shadow-primary/40">
+        <div class="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <h2 class="text-white text-4xl lg:text-6xl font-black mb-6 relative z-10">Sẵn sàng tối ưu hóa<br />doanh nghiệp của bạn?</h2>
+        <p class="text-white/80 text-lg lg:text-xl max-w-2xl mx-auto mb-10 relative z-10">
+            Tham gia cùng hàng trăm doanh nghiệp đã thành công với các giải pháp phần mềm từ IPSystem.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 relative z-10">
+            <a href="{% url 'contact:contact' %}" class="bg-white text-primary px-10 py-5 rounded-2xl text-xl font-black hover:bg-slate-50 transition-all shadow-xl">
+                Bắt đầu dự án ngay
+            </a>
+        </div>
+    </div>
+</section>
+<!-- ===== END CTA ===== -->
+
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const carousel = document.getElementById('carousel');
+    const dots = document.querySelectorAll('.dot');
+    const total = dots.length; // Tự đếm số slide động
+    let current = 0;
+    let autoTimer;
+
+    function goTo(index) {
+        current = (index + total) % total;
+        carousel.scrollLeft = carousel.offsetWidth * current;
+        dots.forEach((d, i) => {
+            d.classList.toggle('active', i === current);
+            d.style.width = i === current ? '2.5rem' : '1rem';
+        });
+    }
+
+    if (document.getElementById('prevBtn')) {
+        document.getElementById('prevBtn').addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+        document.getElementById('nextBtn').addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+    }
+    dots.forEach(dot => dot.addEventListener('click', () => { goTo(parseInt(dot.dataset.index)); resetAuto(); }));
+
+    function startAuto() {
+        if (total > 1) autoTimer = setInterval(() => goTo(current + 1), 5000);
+    }
+    function resetAuto() { clearInterval(autoTimer); startAuto(); }
+    startAuto();
+</script>
+{% endblock %}
