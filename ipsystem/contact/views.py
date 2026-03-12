@@ -10,6 +10,7 @@ def contact(request):
         email = request.POST.get("email")
         phone = request.POST.get("phone")
         message_text = request.POST.get("message")
+        service = request.POST.get("service")
 
         subject = "Cảm ơn bạn đã liên hệ IPSystem"
 
@@ -22,8 +23,10 @@ Thông tin bạn gửi:
 
 Email: {email}
 SĐT: {phone}
+Gói dịch vụ đăng ký: {service}
 
-Nội dung:
+
+Ghi chú:
 {message_text}
 
 Chúng tôi sẽ phản hồi sớm nhất.
