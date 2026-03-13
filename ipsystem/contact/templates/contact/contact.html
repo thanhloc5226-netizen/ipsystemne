@@ -120,16 +120,29 @@
           </div>
         </div>
 
-        <!-- Map -->
-        <div class="relative mt-auto h-72 w-full overflow-hidden rounded-2xl border border-primary/10 bg-slate-200 shadow-inner dark:bg-slate-800">
-          <div class="absolute inset-0 bg-cover bg-center grayscale opacity-60 hover:grayscale-0 transition-all duration-700" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDobqFcjAVhYX1bt9Rt3iLHQsYrV6ccQ9uQ8eeSQ0OrW3WIt8vuFpAEu45BO7kPDFLHMCCf2WOuWIr6IvNIHfbnRjm551tT4tJT2iXeXnfVfQ3sOmuaBGRuk1UKKl8GrvmzXY8m9loMMG2QtWJdA8oetRUk2R7D2p3MaI8FDNYGPH2Crz8jCu3JrVm6_h15yC3AJjGysv7_uDf7gjAUPHVd9Z6bn1Jc7GGTkBZWVGi6e3syHvGENJOXgArsN1_OAsbQQIIKRDR2wf0');"></div>
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white shadow-xl animate-bounce">
-              <span class="material-symbols-outlined">location_on</span>
-            </div>
-          </div>
-          <div class="absolute bottom-4 left-4 rounded-lg bg-white/90 px-3 py-1.5 text-xs font-bold text-slate-800 shadow-sm backdrop-blur dark:bg-slate-900/90 dark:text-white">Trụ sở IPSystem - TP. Hồ Chí Minh</div>
-        </div>
+<!-- Map -->
+<div class="relative mt-auto h-72 w-full overflow-hidden rounded-2xl border border-primary/10 bg-slate-200 shadow-inner dark:bg-slate-800">
+
+  <iframe
+    class="absolute inset-0 w-full h-full border-0"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.173448003619!2d106.67007717476665!3d10.798024158795528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529296b889e2d%3A0xa78933751c6ebcaa!2zMzggVHLGsMahbmcgUXXhu5FjIER1bmcsIFBoxrDhu51uZyAxMCwgUGjDuiBOaHXhuq1uLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmggNzIyMTcsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1773283332065!5m2!1svi!2s"
+    allowfullscreen=""
+    loading="lazy">
+  </iframe>
+
+  <!-- Icon -->
+  <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white shadow-xl animate-bounce">
+      <span class="material-symbols-outlined">location_on</span>
+    </div>
+  </div>
+
+  <!-- Label -->
+  <div class="absolute bottom-4 left-4 rounded-lg bg-white/90 px-3 py-1.5 text-xs font-bold text-slate-800 shadow-sm backdrop-blur dark:bg-slate-900/90 dark:text-white">
+    Trụ sở IPSystem - TP. Hồ Chí Minh
+  </div>
+
+</div>
       </div>
     </div>
   </section>
