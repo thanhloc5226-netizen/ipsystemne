@@ -162,72 +162,116 @@
     <!-- ===== END FLOATING BUTTONS ===== -->
 
     <!-- ===== FOOTER ===== -->
-    <footer class="bg-primary text-white/80 py-16 px-6" id="lien-he">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            <div class="flex flex-col gap-6">
-                <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-3xl font-bold text-white">terminal</span>
-                    <h2 class="text-white text-2xl font-black">IPSystem</h2>
-                </div>
-                <p class="leading-relaxed">
-                    Chuyên gia thiết kế phần mềm và giải pháp công nghệ cao cấp cho doanh nghiệp hiện đại.
-                </p>
-                <div class="flex gap-4">
-                    <a class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/40 transition-colors" href="#">
-                        <span class="material-symbols-outlined text-white text-sm">public</span>
-                    </a>
-                    <a class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/40 transition-colors" href="#">
-                        <span class="material-symbols-outlined text-white text-sm">group</span>
-                    </a>
-                    <a class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/40 transition-colors" href="#">
-                        <span class="material-symbols-outlined text-white text-sm">mail</span>
-                    </a>
-                </div>
+<footer class="bg-primary text-white/95 py-16 px-6" id="lien-he">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div class="flex flex-col gap-6">
+            <div class="flex items-center gap-1" style="margin-left: -10%;">
+                <img src="../../../media/logo/logo_ipsystem_kochu2.png" class="h-20 w-auto" alt="IPSystem Logo"/>
+                <h2 class="text-2xl font-black leading-tight tracking-tight" style="font-family: 'Orbitron', sans-serif; color: #ffffff;">IPSYSTEM</h2>
             </div>
-            <div>
-                <h4 class="text-white font-bold mb-8 uppercase tracking-widest text-sm">Công ty</h4>
-                <ul class="space-y-4">
-                    <li><a class="hover:text-white transition-colors" href="{% url 'about:about' %}">Về chúng tôi</a></li>
-                    <li><a class="hover:text-white transition-colors" href="{% url 'portfolio:portfolio' %}">Dự án</a></li>
-                    <li><a class="hover:text-white transition-colors" href="#">Tuyển dụng</a></li>
-                    <li><a class="hover:text-white transition-colors" href="#">Tin tức</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-8 uppercase tracking-widest text-sm">Dịch vụ</h4>
-                <ul class="space-y-4">
-                    <li><a class="hover:text-white transition-colors" href="{% url 'service:service' %}">Giới thiệu doanh nghiệp</a></li>
-                    <li><a class="hover:text-white transition-colors" href="{% url 'service:service' %}">Thương mại điện tử</a></li>
-                    <li><a class="hover:text-white transition-colors" href="{% url 'service:service' %}">Hệ thống quản lý</a></li>
-                    <li><a class="hover:text-white transition-colors" href="{% url 'service:service' %}">Hệ thống nội bộ</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-8 uppercase tracking-widest text-sm">Liên hệ</h4>
-                <ul class="space-y-4">
-                    <li class="flex gap-3">
-                        <span class="material-symbols-outlined text-white/60">pin_drop</span>
-                        <span>Đường Trương Quốc Dung, Phú Nhuận, TP. Hồ Chí Minh</span>
-                    </li>
-                    <li class="flex gap-3">
-                        <span class="material-symbols-outlined text-white/60">call</span>
-                        <span>(+84) 764552008</span>
-                    </li>
-                    <li class="flex gap-3">
-                        <span class="material-symbols-outlined text-white/60">mail</span>
-                        <span>hotro.ipsystem@gmail.com</span>
-                    </li>
-                </ul>
+            <p class="leading-relaxed font-medium text-white/90">
+                Chuyên gia thiết kế phần mềm và giải pháp công nghệ cao cấp cho doanh nghiệp hiện đại.
+            </p>
+            <div class="flex gap-4">
+                <a class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all duration-300" href="#">
+                    <span class="material-symbols-outlined text-white text-sm">public</span>
+                </a>
+                <a class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all duration-300" href="#">
+                    <span class="material-symbols-outlined text-white text-sm">group</span>
+                </a>
+                <a class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all duration-300" href="#">
+                    <span class="material-symbols-outlined text-white text-sm">mail</span>
+                </a>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto pt-8 border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-            <p>© 2024 IPSystem Agency. Bảo lưu mọi quyền.</p>
-            <div class="flex gap-8">
-                <a class="hover:text-white transition-colors" href="#">Chính sách bảo mật</a>
-                <a class="hover:text-white transition-colors" href="#">Điều khoản dịch vụ</a>
-            </div>
+
+        <div>
+            <h4 class="text-white font-bold mb-8 uppercase tracking-widest text-sm">Công ty</h4>
+            <ul class="space-y-4 font-medium">
+                <li>
+                    <a class="group relative inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors duration-300" href="{% url 'about:about' %}">
+                        <span class="absolute -left-4 opacity-0 group-hover:opacity-100 group-hover:-left-3 transition-all duration-300 text-white/60">›</span>
+                        Về chúng tôi
+                    </a>
+                </li>
+                <li>
+                    <a class="group relative inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors duration-300" href="{% url 'portfolio:portfolio' %}">
+                        <span class="absolute -left-4 opacity-0 group-hover:opacity-100 group-hover:-left-3 transition-all duration-300 text-white/60">›</span>
+                        Dự án
+                    </a>
+                </li>
+                <li>
+                    <a class="group relative inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors duration-300" href="#">
+                        <span class="absolute -left-4 opacity-0 group-hover:opacity-100 group-hover:-left-3 transition-all duration-300 text-white/60">›</span>
+                        Tuyển dụng
+                    </a>
+                </li>
+                <li>
+                    <a class="group relative inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors duration-300" href="#">
+                        <span class="absolute -left-4 opacity-0 group-hover:opacity-100 group-hover:-left-3 transition-all duration-300 text-white/60">›</span>
+                        Tin tức
+                    </a>
+                </li>
+            </ul>
         </div>
-    </footer>
+
+        <div>
+            <h4 class="text-white font-bold mb-8 uppercase tracking-widest text-sm">Dịch vụ</h4>
+            <ul class="space-y-4 font-medium">
+                <li>
+                    <a class="group relative inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors duration-300" href="{% url 'service:service' %}">
+                        <span class="absolute -left-4 opacity-0 group-hover:opacity-100 group-hover:-left-3 transition-all duration-300 text-white/60">›</span>
+                        Giới thiệu doanh nghiệp
+                    </a>
+                </li>
+                <li>
+                    <a class="group relative inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors duration-300" href="{% url 'service:service' %}">
+                        <span class="absolute -left-4 opacity-0 group-hover:opacity-100 group-hover:-left-3 transition-all duration-300 text-white/60">›</span>
+                        Thương mại điện tử
+                    </a>
+                </li>
+                <li>
+                    <a class="group relative inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors duration-300" href="{% url 'service:service' %}">
+                        <span class="absolute -left-4 opacity-0 group-hover:opacity-100 group-hover:-left-3 transition-all duration-300 text-white/60">›</span>
+                        Hệ thống quản lý
+                    </a>
+                </li>
+                <li>
+                    <a class="group relative inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors duration-300" href="{% url 'service:service' %}">
+                        <span class="absolute -left-4 opacity-0 group-hover:opacity-100 group-hover:-left-3 transition-all duration-300 text-white/60">›</span>
+                        Hệ thống nội bộ
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="text-white font-bold mb-8 uppercase tracking-widest text-sm">Liên hệ</h4>
+            <ul class="space-y-4 font-medium">
+                <li class="flex gap-3 group hover:text-white transition-colors duration-300 cursor-default">
+                    <span class="material-symbols-outlined text-white/60 group-hover:text-white/90 transition-colors duration-300">pin_drop</span>
+                    <span class="text-white/90 group-hover:text-white transition-colors duration-300">Đường Trương Quốc Dung, Phú Nhuận, TP. Hồ Chí Minh</span>
+                </li>
+                <li class="flex gap-3 group hover:text-white transition-colors duration-300 cursor-default">
+                    <span class="material-symbols-outlined text-white/60 group-hover:text-white/90 transition-colors duration-300">call</span>
+                    <span class="text-white/90 group-hover:text-white transition-colors duration-300">(+84) 764552008</span>
+                </li>
+                <li class="flex gap-3 group hover:text-white transition-colors duration-300 cursor-default">
+                    <span class="material-symbols-outlined text-white/60 group-hover:text-white/90 transition-colors duration-300">mail</span>
+                    <span class="text-white/90 group-hover:text-white transition-colors duration-300">hotro.ipsystem@gmail.com</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto pt-8 border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-medium">
+        <p class="text-white/90">© 2024 IPSystem Agency. Bảo lưu mọi quyền.</p>
+        <div class="flex gap-8">
+            <a class="text-white/90 hover:text-white relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-white hover:after:w-full after:transition-all after:duration-300" href="#">Chính sách bảo mật</a>
+            <a class="text-white/90 hover:text-white relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-white hover:after:w-full after:transition-all after:duration-300" href="#">Điều khoản dịch vụ</a>
+        </div>
+    </div>
+</footer>
     <!-- ===== END FOOTER ===== -->
 
 </div>
