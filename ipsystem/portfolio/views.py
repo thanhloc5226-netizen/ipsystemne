@@ -21,5 +21,7 @@ def project(request,id):
 CAT_SLUG = {
     'Thương mại điện tử': 'tmdt',
     'Giới thiệu doanh nghiệp': 'dn',
-    'Landing Page': 'lp',
+    'Hệ thống quản lý nội bộ': 'qlnb',
+    'Thiết kế theo yêu cầu': 'tktyc',
+    
 }
