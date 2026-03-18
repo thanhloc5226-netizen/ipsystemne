@@ -17,6 +17,82 @@
     .prose-content {
         @apply text-slate-600 dark:text-slate-300 leading-relaxed text-lg;
     }
+    .masonry-grid {
+    column-count: 3;
+    column-gap: 1.5rem;
+    }
+
+    .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f8f9fa;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    }
+
+    .masonry-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    }
+
+    .masonry-caption {
+    padding: 1rem;
+    margin: 0;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #444;
+    }
+
+    @media (max-width: 900px) {
+    .masonry-grid { column-count: 2; }
+    }
+    @media (max-width: 600px) {
+    .masonry-grid { column-count: 1; }
+    }
+    .img-popup {
+
+    cursor: zoom-in;
+    transition: 0.3s;
+}
+
+.img-popup:hover {
+    opacity: 0.8;
+}
+
+/* Popup */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0  ;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.85);
+    
+}
+
+/* Ảnh to */
+.popup-content {
+    display: block;
+    margin: auto;
+    max-width: 80%;
+    max-height: 80%;
+    margin-top: 450px;
+    border-radius: 10px;
+}
+
+/* Nút đóng */
+.close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: white;
+    font-size: 35px;
+    cursor: pointer;
+}
 </style>
 {% endblock %}
 
@@ -38,7 +114,7 @@
         <div class="grid md:grid-cols-2 gap-10 lg:gap-16 mb-16 items-start">
 
             <!-- Left: Main Image -->
-            <div class="relative overflow-hidden rounded-2xl shadow-2xl shadow-primary/10 aspect-[4/3] md:aspect-[16/10] bg-slate-100 dark:bg-slate-800">
+            <div class="relative overflow-hidden rounded-2xl shadow-2xl shadow-primary/10  bg-slate-100 dark:bg-slate-800">
                 <img 
                     src="{{ portfolio.image.url }}" 
                     alt="{{ portfolio.title }}" 
@@ -103,6 +179,24 @@
 
         </div>
 
+   <div class="masonry-grid my-5">
+  {% for item in port_images %}
+    <div class="masonry-item">
+    <img 
+        src="{{ item.image.url }}" 
+        alt="{{ item.description|default:'' }}" 
+        class="img-popup"
+    >
+
+    <div id="popup" class="popup">
+        <span class="close">&times;</span>
+        <img class="popup-content" id="popup-img">
+        <p class="popup-desc" id='popup-desc'>{{ item.description}}</p>
+    </div>
+      <p class="masonry-caption" >{{ item.description }}</p>
+    </div>
+  {% endfor %}
+</div>
         <!-- CTA -->
         <div class="bg-primary/5 dark:bg-primary/10 rounded-3xl p-10 md:p-16 text-center space-y-8 reveal">
             <h2 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white leading-tight">
@@ -125,7 +219,30 @@
 
     </div>
 </div>
+<script>
+const popup = document.getElementById("popup");
+const popupImg = document.getElementById("popup-img");
 
+document.querySelectorAll(".img-popup").forEach(img => {
+    img.onclick = function() {
+        popup.style.display = "block";
+        popupImg.src = this.src;
+        popupDesc.innerText = this.dataset.desc || "";
+    }
+});
+
+// đóng popup
+document.querySelector(".close").onclick = function() {
+    popup.style.display = "none";
+}
+
+// click ra ngoài cũng đóng
+popup.onclick = function(e) {
+    if (e.target === popup) {
+        popup.style.display = "none";
+    }
+}
+</script>
 {% endblock %}
 
 {% block extra_js %}

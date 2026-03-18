@@ -15,7 +15,12 @@ def portfolio(request):
 
 def project(request,id):
     portfolio = Portfolio.objects.get(id=id)
-    return render(request, 'portfolio/project.html', {'portfolio': portfolio})
+    port_images = Portfolio_Image.objects.filter(portfolio=portfolio)
+    context = {
+        'portfolio': portfolio,
+        'port_images': port_images,
+        }
+    return render(request, 'portfolio/project.html',context )
 
 # SLUG
 CAT_SLUG = {

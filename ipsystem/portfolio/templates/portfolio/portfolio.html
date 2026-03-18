@@ -48,24 +48,17 @@
 
       <!-- Project Grid -->
 <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-  {% for portfolio in portfolio %}
-    <div class="project-card reveal" data-cat="{{ portfolio.cat_slug }}">
+  {% for item in portfolio %}
+    <div class="project-card reveal" data-cat="{{ item.cat_slug }}">
       <div class="group flex flex-col gap-4 cursor-pointer">
-        <a href="{% url 'portfolio:project' portfolio.id %}">
-          <div class="relative overflow-hidden rounded-xl aspect-[16/10] bg-slate-100">
-            <div class="w-full h-full bg-center bg-no-repeat bg-cover transition-transform duration-500 group-hover:scale-110" 
-                 style="background-image: url('{{ portfolio.image.url }}');"></div>
-            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300"></div>
-          </div>
-          <div class="flex flex-col gap-1">
-            <span class="text-primary text-xs font-bold uppercase tracking-widest">{{ portfolio.category }}</span>
-            <h3 class="text-slate-900 dark:text-white text-xl font-bold group-hover:text-primary transition-colors">{{ portfolio.title }}</h3>
-            <div class="flex items-center gap-1 text-slate-500 dark:text-slate-400 text-sm font-medium">
-              <a href="{% url 'portfolio:project' portfolio.id %}">Xem chi tiết dự án</a>
-              <span class="material-symbols-outlined text-base">arrow_forward</span>
+          <div class="group relative rounded-2xl overflow-hidden aspect-[4/5] shadow-lg reveal reveal--scale">
+            <img alt="Hệ thống ngân hàng số" class="w-25 h-25 object-cover group-hover:scale-110 transition-transform duration-500" src="{{ item.image.url }}" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-8">
+              <span class="text-primary font-bold text-sm uppercase tracking-widest mb-2">{{ item.category }}</span>
+              <h4 class="text-white text-2xl font-bold mb-4">{{ item.title }}</h4>
+              <a href="{% url 'portfolio:project' item.id %}"><button class="w-12 h-12 rounded-full bg-white text-primary flex items-center justify-center"><span class="material-symbols-outlined">north_east</span></button></a>
             </div>
           </div>
-        </a>
       </div>
     </div>
   {% endfor %}
