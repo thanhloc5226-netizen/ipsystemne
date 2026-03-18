@@ -415,25 +415,33 @@
     const overlay = document.getElementById('page-transition-overlay');
     const mainEl = document.querySelector('main');
 
-    // Khi trang load xong: kéo overlay ra khỏi màn hình + hiện nội dung
-    window.addEventListener('DOMContentLoaded', () => {
-        // Nhỏ delay để browser vẽ xong trước khi animate
+    function revealPage() {
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
+                overlay.classList.remove('slide-in');
                 overlay.classList.add('slide-out');
                 mainEl.classList.add('page-visible');
             });
         });
+    }
+
+    // Load bình thường
+    window.addEventListener('DOMContentLoaded', revealPage);
+
+    // Khi nhấn back/forward — bfcache trả về trang cũ
+    window.addEventListener('pageshow', (e) => {
+        if (e.persisted) {
+            revealPage();
+        }
     });
 
-    // Khi click vào link nội bộ: kéo overlay vào trước khi chuyển trang
+    // Khi click vào link nội bộ
     document.addEventListener('click', (e) => {
         const link = e.target.closest('a[href]');
         if (!link) return;
 
         const href = link.getAttribute('href');
 
-        // Bỏ qua: link ngoài, anchor (#), target blank, javascript:
         if (
             !href ||
             href.startsWith('#') ||
@@ -445,17 +453,14 @@
 
         e.preventDefault();
 
-        // Kéo overlay vào che màn hình
         overlay.classList.remove('slide-out');
         overlay.classList.add('slide-in');
 
-        // Sau khi animation xong thì chuyển trang
         setTimeout(() => {
             window.location.href = href;
         }, 420);
     });
 </script>
-
 <script>
     // ===== SCROLL REVEAL =====
     const revealEls = document.querySelectorAll('.reveal');
