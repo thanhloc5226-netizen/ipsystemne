@@ -1,0 +1,414 @@
+{% extends 'ipsystemapp/base.html' %}
+{% load static %}
+
+{% block title %}Điều Khoản Sử Dụng – IP Leader{% endblock %}
+
+{% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;900&display=swap" rel="stylesheet" />
+<style>
+    /* ── TOC active ── */
+    .toc-link.active { color: #d41132; font-weight: 600; }
+    .toc-link.active .toc-dot { opacity: 1; width: 1.25rem; }
+
+    /* ── Fade up on load ── */
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    .section-animate { animation: fadeUp 0.5s ease both; }
+    #s1 { animation-delay: 0.05s; }
+    #s2 { animation-delay: 0.10s; }
+    #s3 { animation-delay: 0.15s; }
+    #s4 { animation-delay: 0.20s; }
+    #s5 { animation-delay: 0.25s; }
+
+    /* ── Ruled gradient line ── */
+    .ruled-line { background: linear-gradient(90deg, #d41132 0%, #e3bebb 60%, transparent 100%); }
+
+    /* ── Badge ── */
+    .ip-badge {
+        display: inline-block;
+        background: #ffdad7;
+        color: #d41132;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        padding: 2px 12px;
+        border-radius: 9999px;
+        text-transform: uppercase;
+    }
+
+    /* ── Highlight card hover ── */
+    .h-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .h-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(212,17,50,0.10); }
+
+    /* ── Sticky TOC scroll ── */
+    @media (min-width: 1024px) {
+        .toc-sidebar { position: sticky; top: 6rem; max-height: calc(100vh - 8rem); overflow-y: auto; }
+    }
+
+    /* ── Final-clause quote decoration ── */
+    .final-clause { position: relative; padding-left: 1.75rem; }
+    .final-clause::before {
+        content: '\201C';
+        position: absolute; left: 0; top: -0.5rem;
+        font-size: 3rem; color: #d41132; opacity: 0.2;
+        font-family: 'Public Sans', serif; line-height: 1;
+    }
+
+    /* ── Step connector ── */
+    .step-connector { position: relative; }
+    .step-connector:not(:last-child)::after {
+        content: '';
+        position: absolute; left: 1.15rem; top: 2.75rem; bottom: -1.5rem;
+        width: 2px;
+        background: linear-gradient(to bottom, rgba(212,17,50,0.25), transparent);
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #e3bebb; border-radius: 9999px; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ── Top brand bar ── -->
+<div class="bg-primary text-white px-6 py-2.5 flex items-center justify-between text-xs font-semibold tracking-widest uppercase">
+    <span>IP Leader · ipleader.vn</span>
+    <span class="opacity-60">Tài liệu pháp lý</span>
+</div>
+
+<!-- ── Page header ── -->
+<header class="px-6 md:px-16 pt-14 pb-10 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div>
+            <span class="ip-badge mb-4 inline-block">Legal Documentation</span>
+            <h1 class="text-5xl md:text-7xl font-black text-slate-900 dark:text-white leading-none tracking-tighter mt-3" style="font-family:'Public Sans',sans-serif;">
+                ĐIỀU KHOẢN<br/>
+                <span class="text-primary">SỬ DỤNG</span>
+            </h1>
+            <div class="mt-5 h-1 w-20 ruled-line rounded-full"></div>
+        </div>
+        <div class="flex flex-col items-start md:items-end gap-1.5 text-sm text-slate-500 dark:text-slate-400">
+            <p><span class="font-semibold text-slate-800 dark:text-white">Công ty TNHH IP Leader</span></p>
+            <p>Website: ipleader.vn</p>
+            <p>Phiên bản hiện hành · 2024</p>
+        </div>
+    </div>
+</header>
+
+<!-- ── Main layout ── -->
+<div class="max-w-6xl mx-auto px-6 md:px-16 py-14 flex flex-col lg:flex-row gap-14">
+
+    <!-- ── Sidebar TOC ── -->
+    <aside class="hidden lg:block w-60 shrink-0">
+        <div class="toc-sidebar">
+            <p class="text-xs font-bold tracking-[0.18em] uppercase text-slate-400 mb-4">Mục lục</p>
+            <nav class="space-y-0.5" id="toc-nav">
+                {% for item in toc_items|default:"" %}{% endfor %}
+                <a href="#s1" class="toc-link flex items-center gap-3 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors group">
+                    <span class="toc-dot block w-2 h-0.5 bg-current opacity-30 transition-all duration-200 group-hover:opacity-100 group-hover:w-5"></span>
+                    <span>I. Nguyên tắc chung</span>
+                </a>
+                <a href="#s2" class="toc-link flex items-center gap-3 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors group">
+                    <span class="toc-dot block w-2 h-0.5 bg-current opacity-30 transition-all duration-200 group-hover:opacity-100 group-hover:w-5"></span>
+                    <span>II. Quyền sở hữu trí tuệ</span>
+                </a>
+                <a href="#s3" class="toc-link flex items-center gap-3 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors group">
+                    <span class="toc-dot block w-2 h-0.5 bg-current opacity-30 transition-all duration-200 group-hover:opacity-100 group-hover:w-5"></span>
+                    <span>III. Điều khoản sử dụng</span>
+                </a>
+                <a href="#s4" class="toc-link flex items-center gap-3 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors group">
+                    <span class="toc-dot block w-2 h-0.5 bg-current opacity-30 transition-all duration-200 group-hover:opacity-100 group-hover:w-5"></span>
+                    <span>IV. Giải quyết khiếu nại</span>
+                </a>
+                <a href="#s5" class="toc-link flex items-center gap-3 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors group">
+                    <span class="toc-dot block w-2 h-0.5 bg-current opacity-30 transition-all duration-200 group-hover:opacity-100 group-hover:w-5"></span>
+                    <span>V. Điều khoản cuối cùng</span>
+                </a>
+            </nav>
+
+            <!-- Quick contact -->
+            <div class="mt-10 p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+                <p class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Liên hệ nhanh</p>
+                <a href="mailto:info.ipleader@gmail.com" class="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 hover:text-primary transition-colors mb-2">
+                    <span class="material-symbols-outlined" style="font-size:15px;">mail</span>
+                    info.ipleader@gmail.com
+                </a>
+                <a href="tel:+84764552008" class="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined" style="font-size:15px;">call</span>
+                    (+84) 076 455 2008
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ── Content ── -->
+    <main class="flex-1 min-w-0 space-y-20 page-visible">
+
+        <!-- Highlight bento -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="h-card sm:col-span-2 bg-slate-50 dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col justify-between gap-6">
+                <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings:'FILL' 1,'wght' 400;">verified_user</span>
+                <div>
+                    <h3 class="font-bold text-lg mb-1 text-slate-900 dark:text-white" style="font-family:'Public Sans',sans-serif;">Cam kết bảo mật &amp; minh bạch</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Chúng tôi bảo vệ quyền lợi pháp lý và tài sản trí tuệ của bạn theo tiêu chuẩn pháp luật Việt Nam hiện hành.</p>
+                </div>
+            </div>
+            <div class="h-card bg-primary text-white p-6 rounded-xl flex flex-col justify-between shadow-lg shadow-primary/20">
+                <span class="material-symbols-outlined text-white/40 text-3xl">gavel</span>
+                <div>
+                    <p class="text-3xl font-black leading-none" style="font-family:'Public Sans',sans-serif;">24/7</p>
+                    <p class="text-white/70 text-xs font-semibold uppercase tracking-wider mt-1">Hỗ trợ pháp lý</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── I. Nguyên tắc chung ── -->
+        <section class="section-animate scroll-mt-28" id="s1">
+            <div class="flex items-baseline gap-4 mb-6">
+                <span class="text-6xl font-black text-primary/10 select-none" style="font-family:'Public Sans',sans-serif;">01</span>
+                <h2 class="text-xl font-bold text-primary uppercase tracking-tight" style="font-family:'Public Sans',sans-serif;">I. Nguyên Tắc Chung</h2>
+            </div>
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-8 rounded-xl space-y-5 text-sm leading-relaxed">
+                <p class="text-slate-700 dark:text-slate-300">Trước khi sử dụng trang <strong class="text-slate-900 dark:text-white">ipleader.vn</strong> của <strong class="text-slate-900 dark:text-white">Công ty TNHH IP Leader</strong>, vui lòng đọc kỹ Điều khoản sử dụng dưới đây và các Chính sách liên quan để hiểu rõ quyền lợi và nghĩa vụ hợp pháp của mình đối với Công ty TNHH IP Leader và trang ipleader.vn.</p>
+                <p class="text-slate-500 dark:text-slate-400">Sau đây, Công ty TNHH IP Leader, ipleader.vn, IP LEADER – gọi riêng từng tên hoặc gọi chung là <em>"chúng tôi"</em>, <em>"của chúng tôi"</em>.</p>
+
+                <div class="space-y-4 pt-2">
+                    <div class="flex gap-4">
+                        <span class="shrink-0 w-7 h-7 rounded-full bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-primary font-bold text-xs border border-primary/20">1</span>
+                        <p class="text-slate-600 dark:text-slate-400"><strong class="text-slate-900 dark:text-white">"Dịch vụ"</strong> chúng tôi cung cấp bao gồm tất cả các thông tin, đường dẫn, tính năng, dữ liệu, văn bản, hình ảnh, biểu đồ, âm nhạc, âm thanh, video, tin nhắn, nhãn, nội dung, chương trình, phần mềm hoặc các tài liệu khác có sẵn trên trang ipleader.vn hoặc các sản phẩm, dịch vụ liên quan đến ipleader.vn, bao gồm bất kỳ tính năng mới nào được bổ sung hoặc mở rộng đối với Dịch vụ đều thuộc phạm vi điều chỉnh của Điều khoản sử dụng này.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="shrink-0 w-7 h-7 rounded-full bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-primary font-bold text-xs border border-primary/20">2</span>
+                        <p class="text-slate-600 dark:text-slate-400">Điều khoản sử dụng này áp dụng đối với tất cả người dùng truy cập, yêu cầu cung cấp dịch vụ trên trang ipleader.vn.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="shrink-0 w-7 h-7 rounded-full bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-primary font-bold text-xs border border-primary/20">3</span>
+                        <p class="text-slate-600 dark:text-slate-400">IP LEADER có thể tạm dừng, sửa đổi, gián đoạn bất kỳ khía cạnh nào của website, bao gồm cả tính năng bất kỳ lúc nào cần thiết. Chúng tôi có thể hạn chế một phần tính năng, dịch vụ hoặc hạn chế toàn bộ quyền truy cập của khách hàng mà không cần thông báo trước và không chịu trách nhiệm cho bất kỳ tổn thất nào phát sinh. Ngoài ra, chúng tôi có thể thu hồi quyền sử dụng trang web dựa trên thỏa thuận này.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── II. Quyền sở hữu trí tuệ ── -->
+        <section class="section-animate scroll-mt-28" id="s2">
+            <div class="flex items-baseline gap-4 mb-6">
+                <span class="text-6xl font-black text-primary/10 select-none" style="font-family:'Public Sans',sans-serif;">02</span>
+                <h2 class="text-xl font-bold text-primary uppercase tracking-tight" style="font-family:'Public Sans',sans-serif;">II. Quyền Sở Hữu Trí Tuệ</h2>
+            </div>
+            <div class="space-y-4">
+                <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-l-4 border-l-primary p-6 rounded-xl">
+                    <h4 class="font-bold text-base mb-2 flex items-center gap-2 text-slate-900 dark:text-white">
+                        <span class="material-symbols-outlined text-primary" style="font-size:18px;">copyright</span>
+                        Bản quyền nội dung
+                    </h4>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Tất cả hình ảnh và thông tin trên trang ipleader.vn đều được bảo vệ bởi luật bản quyền hoặc bởi các quyền sở hữu công nghiệp khác. Việc sử dụng và sao chép thông tin này cho mục đích thương mại là không được phép nếu không có sự chấp thuận trước bằng văn bản của Công ty TNHH IP Leader.</p>
+                </div>
+                <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-l-4 border-l-primary p-6 rounded-xl">
+                    <h4 class="font-bold text-base mb-2 flex items-center gap-2 text-slate-900 dark:text-white">
+                        <span class="material-symbols-outlined text-primary" style="font-size:18px;">badge</span>
+                        Nhãn hiệu &amp; thương hiệu
+                    </h4>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Tất cả các tên dịch vụ được viết bằng chữ in hoa hoặc được đánh dấu bởi bất kỳ cách nào trong các trang web này là thương hiệu của Công ty TNHH IP Leader. Logo IP Leader và các biểu tượng dịch vụ liên quan đã được đăng ký bảo hộ. Việc sử dụng trái phép sẽ bị xử lý theo quy định của Luật Sở hữu trí tuệ Việt Nam.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── III. Điều khoản sử dụng ── -->
+        <section class="section-animate scroll-mt-28" id="s3">
+            <div class="flex items-baseline gap-4 mb-6">
+                <span class="text-6xl font-black text-primary/10 select-none" style="font-family:'Public Sans',sans-serif;">03</span>
+                <h2 class="text-xl font-bold text-primary uppercase tracking-tight" style="font-family:'Public Sans',sans-serif;">III. Điều Khoản Sử Dụng</h2>
+            </div>
+
+            <!-- Numbered items -->
+            <div class="space-y-3 mb-6 text-sm leading-relaxed">
+                <div class="flex gap-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl">
+                    <span class="shrink-0 w-7 h-7 rounded-full bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-primary font-bold text-xs border border-primary/20">1</span>
+                    <p class="text-slate-600 dark:text-slate-400">IP LEADER cấp cho khách hàng quyền truy cập thông tin trên website, sử dụng và hiển thị thông tin đó trên thiết bị đầu cuối. Khách hàng truy cập trang ipleader.vn sau đây được gọi là <strong class="text-slate-900 dark:text-white">"Người Dùng"</strong>.</p>
+                </div>
+                <div class="flex gap-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl">
+                    <span class="shrink-0 w-7 h-7 rounded-full bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-primary font-bold text-xs border border-primary/20">2</span>
+                    <p class="text-slate-600 dark:text-slate-400">Thông qua quyền truy cập được cấp nêu trên, Người Dùng có thể xem và tải thông tin trên website chỉ với mục đích cá nhân và phi thương mại. Tuy nhiên, thông tin và nội dung sao chép có được vẫn thuộc quyền sở hữu của Công ty TNHH IP Leader.</p>
+                </div>
+                <div class="flex gap-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl">
+                    <span class="shrink-0 w-7 h-7 rounded-full bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-primary font-bold text-xs border border-primary/20">3</span>
+                    <p class="text-slate-600 dark:text-slate-400">Quyền được phép sử dụng thông tin sẽ bị chấm dứt theo Điều khoản sử dụng này hoặc sẽ bị hủy bỏ nếu Người Dùng vi phạm bất cứ điều khoản hoặc điều kiện nào. Trong trường hợp đó, chúng tôi có thể chấm dứt việc sử dụng của Người Dùng bằng thông báo hoặc không cần thông báo.</p>
+                </div>
+                <div class="flex gap-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl">
+                    <span class="shrink-0 w-7 h-7 rounded-full bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-primary font-bold text-xs border border-primary/20">5</span>
+                    <p class="text-slate-600 dark:text-slate-400">Người Dùng thừa nhận, chấp thuận và đồng ý rằng trong trường hợp nhận được yêu cầu từ cơ quan nhà nước có thẩm quyền, hoặc trường hợp chúng tôi xét thấy cần thiết và theo quy định của pháp luật, IP LEADER có thể truy cập, duy trì và tiết lộ thông tin của Người Dùng.</p>
+                </div>
+            </div>
+
+            <!-- Khoản 4: Nghiêm cấm -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Được phép -->
+                <div class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 rounded-xl">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1,'wght' 400;">task_alt</span>
+                        <h4 class="font-bold text-sm uppercase tracking-wide text-slate-900 dark:text-white">Được phép</h4>
+                    </div>
+                    <ul class="text-sm text-slate-500 dark:text-slate-400 space-y-3">
+                        <li class="flex items-start gap-2"><span class="text-primary mt-0.5 text-xs">●</span>Truy cập thông tin pháp luật công khai trên website.</li>
+                        <li class="flex items-start gap-2"><span class="text-primary mt-0.5 text-xs">●</span>Xem và tải thông tin cho mục đích cá nhân, phi thương mại.</li>
+                        <li class="flex items-start gap-2"><span class="text-primary mt-0.5 text-xs">●</span>Chia sẻ nội dung có dẫn nguồn rõ ràng từ ipleader.vn.</li>
+                        <li class="flex items-start gap-2"><span class="text-primary mt-0.5 text-xs">●</span>Sử dụng các công cụ, tính năng được IP LEADER cấp quyền.</li>
+                    </ul>
+                </div>
+                <!-- Nghiêm cấm -->
+                <div class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-l-4 border-l-red-500 p-6 rounded-xl">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-red-500">block</span>
+                        <h4 class="font-bold text-sm uppercase tracking-wide text-slate-900 dark:text-white">Nghiêm cấm (khoản 4)</h4>
+                    </div>
+                    <ul class="text-sm text-slate-500 dark:text-slate-400 space-y-3">
+                        <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 text-xs">●</span><span><strong class="text-slate-700 dark:text-slate-300">a.</strong> Gây cản trở hoạt động của trang web bằng bất kỳ phương thức nào.</span></li>
+                        <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 text-xs">●</span><span><strong class="text-slate-700 dark:text-slate-300">b.</strong> Tải lên hoặc phát tán những chương trình vi tính độc hại.</span></li>
+                        <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 text-xs">●</span><span><strong class="text-slate-700 dark:text-slate-300">c.</strong> Dỡ bỏ thông báo bản quyền hoặc quyền sở hữu khỏi thông tin tải xuống.</span></li>
+                        <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 text-xs">●</span><span><strong class="text-slate-700 dark:text-slate-300">d.</strong> Sửa đổi, sao chép, phát tán thông tin cho mục đích thương mại.</span></li>
+                        <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 text-xs">●</span><span><strong class="text-slate-700 dark:text-slate-300">e.</strong> Tiết lộ thông tin trên trang web cho bên thứ ba khi chưa nhận được sự đồng ý.</span></li>
+                        <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 text-xs">●</span><span><strong class="text-slate-700 dark:text-slate-300">f.</strong> Vi phạm quyền sở hữu trí tuệ và các quyền khác của IP LEADER.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── IV. Giải quyết khiếu nại ── -->
+        <section class="section-animate scroll-mt-28" id="s4">
+            <div class="flex items-baseline gap-4 mb-6">
+                <span class="text-6xl font-black text-primary/10 select-none" style="font-family:'Public Sans',sans-serif;">04</span>
+                <h2 class="text-xl font-bold text-primary uppercase tracking-tight" style="font-family:'Public Sans',sans-serif;">IV. Giải Quyết Khiếu Nại</h2>
+            </div>
+            <div class="bg-slate-900 dark:bg-slate-950 text-white p-8 md:p-10 rounded-2xl relative overflow-hidden">
+                <div class="relative z-10">
+                    <p class="text-slate-400 text-sm leading-relaxed mb-8">Công ty TNHH IP Leader và Người Dùng có trách nhiệm trong việc tích cực giải quyết mọi vấn đề dẫn đến khiếu nại. Chúng tôi đề cao giải pháp thương lượng, hòa giải giữa các bên nhằm duy trì mối quan hệ và sự tin cậy của khách hàng vào chất lượng dịch vụ.</p>
+
+                    <div class="space-y-7">
+                        <!-- Bước 1 -->
+                        <div class="step-connector flex gap-5">
+                            <div class="shrink-0 w-10 h-10 rounded-full bg-primary flex items-center justify-center font-bold text-sm shadow-lg shadow-primary/30">1</div>
+                            <div class="pt-1.5">
+                                <p class="font-semibold text-sm mb-3">Liên hệ khiếu nại qua các kênh sau:</p>
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-primary/20 p-2 rounded-full">
+                                            <span class="material-symbols-outlined text-primary" style="font-size:16px;">mail</span>
+                                        </div>
+                                        <div>
+                                            <p class="text-slate-500 text-xs uppercase font-bold">Email hỗ trợ</p>
+                                            <p class="text-sm font-medium">info.ipleader@gmail.com</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-primary/20 p-2 rounded-full">
+                                            <span class="material-symbols-outlined text-primary" style="font-size:16px;">call</span>
+                                        </div>
+                                        <div>
+                                            <p class="text-slate-500 text-xs uppercase font-bold">Hotline</p>
+                                            <p class="text-sm font-medium">(+84) 076 455 2008</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <div class="bg-primary/20 p-2 rounded-full">
+                                            <span class="material-symbols-outlined text-primary" style="font-size:16px;">location_on</span>
+                                        </div>
+                                        <div>
+                                            <p class="text-slate-500 text-xs uppercase font-bold">Địa chỉ</p>
+                                            <p class="text-sm leading-relaxed text-slate-300">
+                                                <strong class="text-white">Trụ sở:</strong> 18 Nguyễn Thái Sơn, Phường 3, Quận Gò Vấp, TP. Hồ Chí Minh<br/>
+                                                <strong class="text-white">Văn phòng:</strong> Tầng 3, VIETPHONE OFFICE BUILDING, 127–129 Hoàng Văn Thụ, Phường 8, Quận Phú Nhuận, TP. Hồ Chí Minh
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bước 2 -->
+                        <div class="step-connector flex gap-5">
+                            <div class="shrink-0 w-10 h-10 rounded-full bg-primary flex items-center justify-center font-bold text-sm shadow-lg shadow-primary/30">2</div>
+                            <div class="pt-1.5">
+                                <p class="font-semibold text-sm mb-1">Phản hồi trong <span class="text-primary font-bold">03 ngày làm việc</span></p>
+                                <p class="text-slate-400 text-sm">Bộ phận Chăm sóc khách hàng sẽ liên hệ với khách hàng và cố gắng xử lý vấn đề nhanh chóng. Tùy theo tính chất và mức độ của sự việc, chúng tôi sẽ đề xuất giải pháp tốt nhất cho các khiếu nại và yêu cầu của khách hàng.</p>
+                            </div>
+                        </div>
+
+                        <!-- Bước 3 -->
+                        <div class="flex gap-5">
+                            <div class="shrink-0 w-10 h-10 rounded-full bg-primary flex items-center justify-center font-bold text-sm shadow-lg shadow-primary/30">3</div>
+                            <div class="pt-1.5">
+                                <p class="font-semibold text-sm mb-1">Escalate ra cơ quan Nhà nước</p>
+                                <p class="text-slate-400 text-sm">Trường hợp Công ty TNHH IP Leader đã nỗ lực giải quyết nhưng sự việc vượt quá khả năng và thẩm quyền, vụ việc sẽ được đưa ra cơ quan Nhà nước có thẩm quyền giải quyết theo quy định của pháp luật. <strong class="text-slate-200">Pháp luật điều chỉnh và áp dụng là pháp luật Việt Nam.</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Glow decoration -->
+                <div class="absolute -right-16 -bottom-16 w-56 h-56 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-8 top-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl pointer-events-none"></div>
+            </div>
+        </section>
+
+        <!-- ── V. Điều khoản cuối cùng ── -->
+        <section class="section-animate scroll-mt-28" id="s5">
+            <div class="flex items-baseline gap-4 mb-6">
+                <span class="text-6xl font-black text-primary/10 select-none" style="font-family:'Public Sans',sans-serif;">05</span>
+                <h2 class="text-xl font-bold text-primary uppercase tracking-tight" style="font-family:'Public Sans',sans-serif;">V. Điều Khoản Cuối Cùng</h2>
+            </div>
+            <div class="space-y-4">
+                <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-l-4 border-l-primary p-8 rounded-xl">
+                    <div class="final-clause">
+                        <p class="leading-relaxed text-slate-500 dark:text-slate-400 italic text-sm">IP LEADER có quyền chỉnh sửa Điều khoản sử dụng này vào bất cứ thời điểm nào thông qua việc đăng tải các nội dung được chỉnh sửa lên trang ipleader.vn. Việc Người Dùng tiếp tục sử dụng trang ipleader.vn sau khi việc thay đổi được đăng tải sẽ được xem là Người Dùng chấp nhận các Điều khoản sử dụng được chỉnh sửa.</p>
+                    </div>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl flex items-start gap-3 text-sm text-slate-500 dark:text-slate-400">
+                    <span class="material-symbols-outlined text-primary shrink-0 mt-0.5" style="font-size:18px;">info</span>
+                    <p>Trường hợp có ý kiến hay thắc mắc nào liên quan đến Điều khoản sử dụng, vui lòng liên hệ qua email: <a href="mailto:info.ipleader@gmail.com" class="font-semibold text-primary underline underline-offset-2">info.ipleader@gmail.com</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Signature ── -->
+        <div class="pt-10 border-t border-slate-200 dark:border-slate-700 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div>
+                <p class="text-slate-400 text-xs uppercase tracking-widest font-bold mb-1">Đại diện pháp luật</p>
+                <p class="text-2xl font-black text-slate-900 dark:text-white" style="font-family:'Public Sans',sans-serif;">GIÁM ĐỐC ĐẶNG HOÀNG BẢO</p>
+                <div class="mt-3 flex gap-2 items-center">
+                    <div class="w-12 h-0.5 bg-primary rounded-full"></div>
+                    <div class="w-4 h-0.5 bg-primary/30 rounded-full"></div>
+                </div>
+            </div>
+            <div class="text-xs text-slate-400 text-right">
+                <p>Công ty TNHH IP Leader</p>
+                <p>ipleader.vn · TP. Hồ Chí Minh</p>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Active TOC on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const tocLinks = document.querySelectorAll('.toc-link');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                tocLinks.forEach(l => l.classList.remove('active'));
+                const active = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
+                if (active) active.classList.add('active');
+            }
+        });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+</script>
+{% endblock %}
