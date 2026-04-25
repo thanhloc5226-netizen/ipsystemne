@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'contact',
     'portfolio',
     'ipsystemapp',
+    'policies',
     
 ]
 
@@ -133,6 +134,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -151,4 +153,3 @@ GROQ_API_KEY='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'
 
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

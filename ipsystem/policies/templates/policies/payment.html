@@ -1,0 +1,211 @@
+{% extends 'ipsystemapp/base.html' %}
+{% load static %}
+
+{% block title %}Chính Sách Thanh Toán – IP Leader{% endblock %}
+
+{% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;900&display=swap" rel="stylesheet" />
+<style>
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    .section-animate { animation: fadeUp 0.5s ease both; }
+    #s1 { animation-delay: 0.05s; }
+    #s2 { animation-delay: 0.12s; }
+    #s-sign { animation-delay: 0.18s; }
+
+    .ruled-line { background: linear-gradient(90deg, #d41132 0%, #e3bebb 60%, transparent 100%); }
+
+    .ip-badge {
+        display: inline-block;
+        background: #ffdad7;
+        color: #d41132;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        padding: 2px 12px;
+        border-radius: 9999px;
+        text-transform: uppercase;
+    }
+
+    .pay-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .pay-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(212,17,50,0.10);
+    }
+
+    .bank-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid rgba(148,163,184,0.15);
+        font-size: 0.825rem;
+    }
+    .bank-row:last-child { border-bottom: none; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #e3bebb; border-radius: 9999px; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ── Top brand bar ── -->
+<div class="bg-primary text-white px-6 py-2.5 flex items-center justify-between text-xs font-semibold tracking-widest uppercase">
+    <span>IP Leader · ipleader.vn</span>
+    <span class="opacity-60">Tài liệu pháp lý</span>
+</div>
+
+<!-- ── Page header ── -->
+<header class="px-6 md:px-16 pt-14 pb-10 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div>
+            <span class="ip-badge mb-4 inline-block">Document No. IP-POL-2024</span>
+            <h1 class="text-5xl md:text-7xl font-black text-slate-900 dark:text-white leading-none tracking-tighter mt-3" style="font-family:'Public Sans',sans-serif;">
+                CHÍNH SÁCH<br/>
+                <span class="text-primary">THANH TOÁN</span>
+            </h1>
+            <div class="mt-5 h-1 w-20 ruled-line rounded-full"></div>
+        </div>
+        <div class="flex flex-col items-start md:items-end gap-1.5 text-sm text-slate-500 dark:text-slate-400">
+            <p><span class="font-semibold text-slate-800 dark:text-white">Công ty TNHH IP Leader</span></p>
+            <p>Website: ipleader.vn</p>
+            <p>Phiên bản hiện hành · 2024</p>
+        </div>
+    </div>
+</header>
+
+<!-- ── Main content ── -->
+<div class="max-w-5xl mx-auto px-6 md:px-16 py-14 space-y-20 page-visible">
+
+    <!-- ── Section 1: Hình thức thanh toán ── -->
+    <section class="section-animate scroll-mt-28" id="s1">
+        <div class="flex items-baseline gap-4 mb-8">
+            <span class="text-6xl font-black text-primary/10 select-none" style="font-family:'Public Sans',sans-serif;">01</span>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white uppercase tracking-tight" style="font-family:'Public Sans',sans-serif;">Hình thức thanh toán</h2>
+        </div>
+
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">
+            IP LEADER hỗ trợ Người Dùng thanh toán dịch vụ với <strong class="text-slate-800 dark:text-slate-200">hai phương thức</strong> sau:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Tiền mặt -->
+            <div class="pay-card bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 flex flex-col gap-6">
+                <div class="w-12 h-12 bg-red-50 dark:bg-red-900/20 rounded-xl flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-2xl">payments</span>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-1" style="font-family:'Public Sans',sans-serif;">Tiền mặt <span class="text-sm font-normal text-slate-400">(Cash)</span></h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-5">
+                        Quý khách vui lòng thanh toán trực tiếp tại văn phòng làm việc của IP LEADER:
+                    </p>
+                    <div class="flex items-start gap-3 bg-slate-50 dark:bg-slate-700/50 border-l-4 border-primary p-4 rounded-lg">
+                        <span class="material-symbols-outlined text-primary shrink-0 mt-0.5" style="font-size:16px;">location_on</span>
+                        <p class="text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                            Tầng 3, VIETPHONE BUILDING, 127 – 129 Hoàng Văn Thụ,<br/>
+                            Phường 8, Quận Phú Nhuận, TP. Hồ Chí Minh
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chuyển khoản -->
+            <div class="pay-card bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 flex flex-col gap-6">
+                <div class="w-12 h-12 bg-red-50 dark:bg-red-900/20 rounded-xl flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-2xl">account_balance</span>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-1" style="font-family:'Public Sans',sans-serif;">Chuyển khoản <span class="text-sm font-normal text-slate-400">(Bank Transfer)</span></h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-5">Chuyển khoản vào tài khoản IP LEADER:</p>
+
+                    <div class="bg-slate-50 dark:bg-slate-700/50 rounded-xl p-5 space-y-1">
+                        <div class="bank-row text-slate-500 dark:text-slate-400">
+                            <span>Chủ tài khoản</span>
+                            <span class="font-bold text-slate-900 dark:text-white text-right ml-4">CÔNG TY TNHH IP LEADER</span>
+                        </div>
+                        <div class="bank-row text-slate-500 dark:text-slate-400">
+                            <span>Số tài khoản</span>
+                            <span class="font-black text-primary tracking-widest text-base">24109088</span>
+                        </div>
+                        <div class="bank-row text-slate-500 dark:text-slate-400">
+                            <span>Ngân hàng</span>
+                            <span class="font-bold text-slate-900 dark:text-white text-right ml-4">ACB – PGD Văn Thánh, TP. HCM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Section 2: Quy định hoàn tiền ── -->
+    <section class="section-animate scroll-mt-28" id="s2">
+        <div class="flex items-baseline gap-4 mb-8">
+            <span class="text-6xl font-black text-primary/10 select-none" style="font-family:'Public Sans',sans-serif;">02</span>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white uppercase tracking-tight" style="font-family:'Public Sans',sans-serif;">Quy định về hoàn tiền</h2>
+        </div>
+
+        <div class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 md:p-10 relative overflow-hidden">
+            <!-- Watermark icon -->
+            <span class="material-symbols-outlined absolute -right-4 -top-4 text-[140px] text-slate-200 dark:text-slate-700 select-none pointer-events-none" style="font-variation-settings:'FILL' 1,'wght' 300;">verified_user</span>
+
+            <div class="relative z-10">
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+                    IP LEADER cam kết bảo vệ quyền lợi tối đa cho khách hàng. Hoàn tiền được thực hiện khi Người Dùng đã thanh toán nhưng sau đó phát sinh các vấn đề sau:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-6 flex flex-col gap-4">
+                        <div class="w-10 h-10 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary" style="font-size:20px;">cancel_presentation</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-700 dark:text-slate-300 leading-relaxed">
+                            Không hoàn tất dịch vụ cung cấp theo cam kết ban đầu.
+                        </p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-6 flex flex-col gap-4">
+                        <div class="w-10 h-10 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary" style="font-size:20px;">schedule</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-700 dark:text-slate-300 leading-relaxed">
+                            Không đúng tiến độ thực hiện do lỗi chủ quan từ phía IP LEADER.
+                        </p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-6 flex flex-col gap-4">
+                        <div class="w-10 h-10 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary" style="font-size:20px;">warning</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-700 dark:text-slate-300 leading-relaxed">
+                            Dịch vụ cung cấp không đúng như yêu cầu của Người Dùng đã thỏa thuận.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Signature ── -->
+    <section class="section-animate pt-12 border-t border-slate-200 dark:border-slate-700 flex flex-col md:flex-row md:items-end md:justify-between gap-6" id="s-sign">
+        <div>
+            <p class="text-slate-400 text-xs uppercase tracking-widest font-bold mb-1">Đại diện pháp luật</p>
+            <p class="text-2xl font-black text-slate-900 dark:text-white" style="font-family:'Public Sans',sans-serif;">GIÁM ĐỐC ĐẶNG HOÀNG BẢO</p>
+            <div class="mt-3 flex gap-2 items-center">
+                <div class="w-12 h-0.5 bg-primary rounded-full"></div>
+                <div class="w-4 h-0.5 bg-primary/30 rounded-full"></div>
+            </div>
+        </div>
+        <div class="text-xs text-slate-400 text-right">
+            <p>Công ty TNHH IP Leader</p>
+            <p>ipleader.vn · TP. Hồ Chí Minh</p>
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}
