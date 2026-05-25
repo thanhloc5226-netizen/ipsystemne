@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'portfolio',
     'ipsystemapp',
     'policies',
+    'news',
     
 ]
 
@@ -148,6 +149,7 @@ EMAIL_HOST_USER = 'hotro.ipsystem@gmail.com'  # email của bạn
 EMAIL_HOST_PASSWORD = 'migg igri reiv wide'  # App Password (không phải mật khẩu Gmail thường)
 DEFAULT_FROM_EMAIL = 'hotro.ipsystem@gmail.com'  # email của bạn
 
+GROQ_API_KEY='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'
 
 
 

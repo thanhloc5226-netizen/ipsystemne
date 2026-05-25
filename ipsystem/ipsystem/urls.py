@@ -28,6 +28,7 @@ urlpatterns = [
     path('portfolio/',include('portfolio.urls')),
     path('', include('ipsystemapp.urls')),
     path('policies/', include('policies.urls')),
+    path('news/', include('news.urls')),
 ]
 
 if settings.DEBUG:
