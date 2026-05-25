@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'ipsystemapp',
     'policies',
     'news',
+    'sample',
     
 ]
 
