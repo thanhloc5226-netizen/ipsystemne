@@ -11,7 +11,9 @@ class Sample(models.Model):
     type = models.CharField(max_length=20, choices=Type.choices)
     title = models.CharField(max_length=255)
     description = models.TextField()
-    file = models.ImageField(upload_to='samples/', null=True, blank=True)
+    image_1 = models.ImageField(upload_to='samples/', null=True, blank=True)
+    image_2 = models.ImageField(upload_to='samples/', null=True, blank=True)
+    image_3 = models.ImageField(upload_to='samples/', null=True, blank=True)
 
     def __str__(self):
         return self.title

@@ -36,15 +36,36 @@
              <span class="text-primary font-bold text-sm uppercase tracking-widest mb-2">{{ sample.title }}</span>
         </div>
         <div class="col" style="width: 50% !important; text-align: right;">
-<a href="{% url 'samples:index' %}" 
-   style="background:#dc3545;color:#fff;padding:6px 16px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:500;">
-  ← Quay lại
-</a>        </div>
+          <a href="{% url 'samples:index' %}" 
+            style="background:#dc3545;color:#fff;padding:6px 16px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:500;">
+            ← Quay lại
+          </a>        
+        </div>
+    </div>
+    <div class="row mb-2" style="display: flex !important; flex-wrap: nowrap !important;">
+        <div class="col" style="width: 50% !important;">
+             <img src="{{ sample.image_2.url }}" alt="{{ sample.title }} image 2" class="h-auto rounded-lg shadow-lg mb-6">
+        </div>
+        <div class="col" style="width: 50% !important;">
+                      <h2 class="text-primary font-bold text-sm uppercase tracking-widest mb-2">Giá trị</h2>
+                      <p>{{ sample.description|linebreaks }}</p>
+    
+        </div>
          
     </div>
-    <img src="{{ sample.file.url }}" alt="{{ sample.title }} file" class="h-auto rounded-lg shadow-lg mb-6">
+    <div class="row mb-2" style="display: flex !important; flex-wrap: nowrap !important;">
+        <div class="col" style="width: 50% !important;">
+             <img src="{{ sample.image_1.url }}" alt="{{ sample.title }} image 2" class="h-auto rounded-lg shadow-lg mb-6">
+        </div>
+        <div class="col" style="width: 50% !important; text-align: right;">
+                       <img src="{{ sample.image_3.url }}" alt="{{ sample.title }} image 2" class="h-auto rounded-lg shadow-lg mb-6">
+    
+        </div>
+         
+    </div>
 </div>
 {% endblock %}
+        
 
 {% block extra_js %}
   <script>

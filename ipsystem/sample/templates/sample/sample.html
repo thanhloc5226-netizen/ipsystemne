@@ -52,11 +52,10 @@
     <div class="project-card reveal" data-cat="{{ item.type|lower }}">
       <div class="group flex flex-col gap-4 cursor-pointer">
           <div class="group relative rounded-2xl overflow-hidden aspect-[4/5] shadow-lg reveal reveal--scale">
-            <img alt="Hệ thống ngân hàng số" class="w-25 h-25 object-cover group-hover:scale-110 transition-transform duration-500" src="{{ item.file.url }}" />
+            <img alt="Hệ thống ngân hàng số" class="w-25 h-25 object-cover group-hover:scale-110 transition-transform duration-500" src="{{ item.image_1.url }}" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-8">
               <span class="text-primary font-bold text-sm uppercase tracking-widest mb-2">{{ item.get_type_display }}</span>
               <h4 class="text-white text-2xl font-bold mb-4">{{ item.title }}</h4>
-              <h1>{{ item.type}}</h1>
               <a href="{% url 'samples:sample_detail' item.id %}"><button class="w-12 h-12 rounded-full bg-white text-primary flex items-center justify-center"><span class="material-symbols-outlined">north_east</span></button></a>
             </div>
           </div>
